@@ -1,4 +1,5 @@
 #include "Grid.h"
+#include <sstream>
 
 Grid::Grid() {
 
@@ -50,6 +51,61 @@ void Grid::setColor(Color c, RectangleShape* r) {
 void Grid::Clear() {
     for (auto a : rectangles) {
         a->setFillColor(Color::White);
+    }
+}
+
+void Grid::exporttxt() {
+    string fileText;
+    std::ostringstream oss;
+    for (size_t i = 0; i < rectangles.size(); i++) {
+        sf::Color c = rectangles[i]->getFillColor();
+        oss << "[" << (int)c.r << "," << (int)c.g << "," << (int)c.b << "][" << i << "]";
+        if (i < rectangles.size() - 1)
+            oss << ", ";
+    }
+
+    std::string output = oss.str();
+    std::cout << output << std::endl;
+
+    std::ofstream file("rectangles.txt");
+    if (file.is_open()) {
+        file << output;
+        file.close();
+    }
+}
+
+void Grid::loadtxt() {
+    std::ifstream file("rectangles.txt");
+    if (!file.is_open()) return;
+
+    std::string data;
+    std::getline(file, data);
+    file.close();
+
+    std::stringstream ss(data);
+    char ch;
+    int r, g, b, idx;
+
+    while (ss >> ch) { // read '['
+        if (ch != '[') continue;
+
+        // Parse R,G,B
+        ss >> r; ss >> ch; // ,
+        ss >> g; ss >> ch; // ,
+        ss >> b; ss >> ch; // ]
+
+        // Skip to index
+        ss >> ch; // should be '['
+        ss >> idx;
+        ss >> ch; // should be ']'
+
+        // Apply color to rectangle at index
+        if (idx >= 0 && idx < (int)rectangles.size()) {
+            rectangles[idx]->setFillColor(sf::Color(r, g, b));
+        }
+
+        // Skip possible comma+space
+        if (ss.peek() == ',') ss.ignore(2);
     }
 }
 

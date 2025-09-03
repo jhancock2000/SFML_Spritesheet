@@ -3,6 +3,9 @@
 #include <vector>
 using namespace sf;
 using namespace std;
+#include <fstream>
+#include <iostream>
+#include <string>
 
 class Grid {
 public:
@@ -11,13 +14,16 @@ public:
 
 	Grid(int col, int row, Vector2f tileSize);
 
-	
-	//void export();
+
 	
 	void draw(RenderWindow& window);
 	void setColor(Color color, RectangleShape* r);
 
 	void Clear();
+
+	void exporttxt();
+
+	void loadtxt();
 
 	std::vector<sf::RectangleShape*> rectangles;
 

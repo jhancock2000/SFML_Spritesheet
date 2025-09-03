@@ -3,6 +3,8 @@
 #include "Grid.h"
 #include <random>
 #include <cmath>
+#include <fstream>
+#include <iostream>
 using namespace std;
 
 using namespace sf;
@@ -31,6 +33,7 @@ int main()
         a->setFillColor({ uint8_t(floor(rand() % 255)), uint8_t(floor(rand() % 255)), uint8_t(floor(rand() % 255)) });
     }
 
+
     while (window.isOpen())
     {
         while (const std::optional event = window.pollEvent())
@@ -38,6 +41,15 @@ int main()
 
             click = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
             click2 = sf::Mouse::isButtonPressed(sf::Mouse::Button::Right);
+
+            if (Keyboard::isKeyPressed(Keyboard::Key::W)) {
+                grid.exporttxt();
+            }
+
+            if (Keyboard::isKeyPressed(Keyboard::Key::E)) {
+                grid.loadtxt();
+            }
+
 
             
             if (event->is<sf::Event::Closed>())
@@ -83,7 +95,6 @@ int main()
                 window.draw(r);
                 if (click) {
                     currentColour = r.getFillColor();
-                    printf("works!");
                     click = false;
                 }
             }
