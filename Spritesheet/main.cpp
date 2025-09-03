@@ -38,6 +38,7 @@ int main()
 
             click = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
             click2 = sf::Mouse::isButtonPressed(sf::Mouse::Button::Right);
+
             
             if (event->is<sf::Event::Closed>())
                 window.close();
@@ -47,6 +48,11 @@ int main()
         Vector2i mousePos = Mouse::getPosition(window);
         grid.draw(window);
         grid2.draw(window);
+
+        if (clear.getGlobalBounds().contains({ float(mousePos.x), float(mousePos.y) }) && click) {
+            grid.Clear();
+
+        }
 
         for (auto a : grid.rectangles)
         {
@@ -88,3 +94,20 @@ int main()
         window.display();
     }
 }
+
+
+/*
+* TODOS:
+* Fix onClick bug. as long as mouse is down, onclick is always on
+* replace white background with transparent texture
+* export rectangle vector with formatting [RGB][POS]
+* IMPORT a vector
+* export as PNG??????
+* Refactor everything into classes.....hard
+* Have set colours, not random everytime
+* Fix that skipping bug for drawing
+* Add different pen styles/sizes?
+* Put clear button somewhere that makes sense
+*
+* 
+*/

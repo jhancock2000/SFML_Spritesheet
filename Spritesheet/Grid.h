@@ -17,6 +17,7 @@ public:
 	void draw(RenderWindow& window);
 	void setColor(Color color, RectangleShape* r);
 
+	void Clear();
 
 	std::vector<sf::RectangleShape*> rectangles;
 

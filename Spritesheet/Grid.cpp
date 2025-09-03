@@ -47,4 +47,10 @@ void Grid::setColor(Color c, RectangleShape* r) {
     r->setFillColor(c);
 }
 
+void Grid::Clear() {
+    for (auto a : rectangles) {
+        a->setFillColor(Color::White);
+    }
+}
+
 
