@@ -1,0 +1,2 @@
+﻿  main.cpp
+C:\Users\jonat\Desktop\SFML_Spritesheet\Spritesheet\main.cpp(1,10): error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
